@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://developers.google.com/closure/compiler/"
-
-    >google-closure-compiler (v20170409.0.0)</a>
+    <a href="https://developers.google.com/closure/compiler/">google-closure-compiler (v20170409.0.0)</a>
 </h1>
 <h4>Check, compile, optimize and compress Javascript with Closure-Compiler</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.google-closure-compiler">module google-closure-compiler</a><ol>
 
@@ -310,7 +303,7 @@
   this.commandArguments = (extraCommandArgs || []).slice();
 
   if (Compiler.JAR_PATH) {
-    this.commandArguments.push(&#x27;-jar&#x27;, Compiler.JAR_PATH);
+    this.commandArguments.push('-jar', Compiler.JAR_PATH);
   }
 
   if (Array.isArray(args)) {
@@ -318,7 +311,7 @@
   } else {
     for (var key in args) {
       if (Array.isArray(args[key])) {
-        for (var i = 0; i &#x3c; args[key].length; i++) {
+        for (var i = 0; i &lt; args[key].length; i++) {
           this.commandArguments.push(
               this.formatArgument(key, args[key][i]));
         }
@@ -343,10 +336,10 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">compiler.prototype.formatArgument = function (key, val) {
   if (val === undefined || val === null) {
-    return &#x27;--&#x27; + key;
+    return '--' + key;
   }
 
-  return &#x27;--&#x27; + key + &#x27;=&#x27; + val;
+  return '--' + key + '=' + val;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -361,7 +354,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">compiler.prototype.getFullCommand = function () {
-  return this.javaPath + &#x27; &#x27; + this.commandArguments.join(&#x27; &#x27;);
+  return this.javaPath + ' ' + this.commandArguments.join(' ');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -376,7 +369,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">compiler.prototype.prependFullCommand = function (msg) {
-  return this.getFullCommand() + &#x27;\n\n&#x27; + msg + &#x27;\n\n&#x27;;
+  return this.getFullCommand() + '\n\n' + msg + '\n\n';
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -392,22 +385,22 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">compiler.prototype.run = function (callback) {
   if (this.logger) {
-    this.logger(this.getFullCommand() + &#x27;\n&#x27;);
+    this.logger(this.getFullCommand() + '\n');
   }
 
   var compileProcess = spawn(this.javaPath, this.commandArguments, this.spawnOptions);
 
-  var stdOutData = &#x27;&#x27;, stdErrData = &#x27;&#x27;;
+  var stdOutData = '', stdErrData = '';
   if (callback) {
-    compileProcess.stdout.on(&#x27;data&#x27;, function (data) {
+    compileProcess.stdout.on('data', function (data) {
       stdOutData += data;
     });
 
-    compileProcess.stderr.on(&#x27;data&#x27;, function (data) {
+    compileProcess.stderr.on('data', function (data) {
       stdErrData += data;
     });
 
-    compileProcess.on(&#x27;close&#x27;, (function (code) {
+    compileProcess.on('close', (function (code) {
       if (code !== 0) {
         stdErrData = this.prependFullCommand(stdErrData);
       }
@@ -415,9 +408,9 @@
       callback(code, stdOutData, stdErrData);
     }).bind(this));
 
-    compileProcess.on(&#x27;error&#x27;, (function (err) {
+    compileProcess.on('error', (function (err) {
       callback(1, stdOutData,
-          this.prependFullCommand(&#x27;Process spawn error. Is java in the path?\n&#x27; + err.message));
+          this.prependFullCommand('Process spawn error. Is java in the path?\n' + err.message));
     }).bind(this));
   }
 
@@ -436,22 +429,22 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">grunt = function (grunt, extraArguments) {
-  var chalk = require(&#x27;chalk&#x27;);
-  var VinylStream = require(&#x27;./vinyl-stream&#x27;);
-  var fs = require(&#x27;fs&#x27;);
-  var path = require(&#x27;path&#x27;);
-  var gulpCompiler = require(&#x27;../gulp&#x27;)({extraArguments: extraArguments});
-  var Transform = require(&#x27;stream&#x27;).Transform;
+  var chalk = require('chalk');
+  var VinylStream = require('./vinyl-stream');
+  var fs = require('fs');
+  var path = require('path');
+  var gulpCompiler = require('../gulp')({extraArguments: extraArguments});
+  var Transform = require('stream').Transform;
   var gulpCompilerOptions = {
-    streamMode: &#x27;IN&#x27;,
+    streamMode: 'IN',
     logger: grunt.log,
-    pluginName: &#x27;grunt-google-closure-compiler&#x27;,
+    pluginName: 'grunt-google-closure-compiler',
     requireStreamInput: false
   };
 
 <span class="apidocCodeCommentSpan">  /**
-   * @param {Array&#x3c;string&#x3e;}|null} files
-   * @param {Object&#x3c;string,string|boolean|Array&#x3c;string&#x3e;&#x3e;|Array&#x3c;string&#x3e;} options
+   * @param {Array&lt;string&gt;}|null} files
+   * @param {Object&lt;string,string|boolean|Array&lt;string&gt;&gt;|Array&lt;string&gt;} options
    * @return {Promise}
    */
 </span>  function compilationPromise(files, options) {
@@ -460,9 +453,9 @@
       // If an error was encoutered, it will have already been logged
       if (!hadError) {
         if (options.js_output_file) {
-          grunt.log.ok(chalk.cyan(options.js_output_file) + &#x27; created&#x27;);
+          grunt.log.ok(chalk.cyan(options.js_output_file) + ' created');
         } else {
-          grunt.log.ok(&#x27;Compilation succeeded&#x27;);
+          grunt.log.ok('Compilation succeeded');
         }
       }
       cb();
@@ -490,16 +483,16 @@
         stream.end();
       }
 
-      stream.on(&#x27;error&#x27;, function(err) {
+      stream.on('error', function(err) {
         hadError = true;
         reject(err);
       });
-      stream.on(&#x27;end&#x27;, function(err) {
+      stream.on('end', function(err) {
         resolve();
       });
 
       stream.pipe(loggingStream);
-      stream.resume(); //logging stream doesn&#x27;t output files, so we have to manually resume;
+      stream.resume(); //logging stream doesn't output files, so we have to manually resume;
     });
   }
 
@@ -529,7 +522,7 @@
 
       var src = f.src.filter(function (filepath) {
         if (!grunt.file.exists(filepath)) {
-          grunt.log.warn(&#x27;Source file &#x27; + chalk.cyan(filepath) + &#x27; not found&#x27;);
+          grunt.log.warn('Source file ' + chalk.cyan(filepath) + ' not found');
           return false;
         }
         return true;
@@ -537,8 +530,8 @@
 
       // Require source files
       if (src.length === 0) {
-        grunt.log.warn(&#x27;Destination &#x27; + chalk.cyan(f.dest) +
-            &#x27; not written because src files were empty&#x27;);
+        grunt.log.warn('Destination ' + chalk.cyan(f.dest) +
+            ' not written because src files were empty');
         return;
       } else {
         options.compilerOpts.js_output_file = f.dest;
@@ -558,17 +551,17 @@
     }
 
     // Multiple invocations of the compiler can occur for a single task target. Wait until
-    // they are all completed before calling the &#x22;done&#x22; method.
+    // they are all completed before calling the "done" method.
     Promise.all(compileTasks).then(function () {
       asyncDone();
     }, function () {
-      grunt.fail.warn(&#x27;Compilation error&#x27;);
+      grunt.fail.warn('Compilation error');
       asyncDone();
     });
   }
 
-  grunt.registerMultiTask(&#x27;closure-compiler&#x27;,
-      &#x27;Minify files with Google Closure Compiler&#x27;,
+  grunt.registerMultiTask('closure-compiler',
+      'Minify files with Google Closure Compiler',
       closur ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -578,8 +571,8 @@
 Include the plugin in your Gruntfile.js:
 
 ```js
-require(&#x27;google-closure-compiler&#x27;).<span class="apidocCodeKeywordSpan">grunt</span>(grunt);
-// The load-grunt-tasks plugin won&#x27;t automatically load closure-compiler
+require('google-closure-compiler').<span class="apidocCodeKeywordSpan">grunt</span>(grunt);
+// The load-grunt-tasks plugin won't automatically load closure-compiler
 ```
 
 Task targets, files and options may be specified according to the grunt
@@ -599,40 +592,40 @@ Task targets, files and options may be specified according to the grunt
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gulp = function (initOptions) {
-  var filesToJson = require(&#x27;./concat-to-json&#x27;);
-  var jsonToVinyl = require(&#x27;./json-to-vinyl&#x27;);
-  var Compiler = require(&#x27;../node/closure-compiler&#x27;);
-  var stream = require(&#x27;stream&#x27;);
+  var filesToJson = require('./concat-to-json');
+  var jsonToVinyl = require('./json-to-vinyl');
+  var Compiler = require('../node/closure-compiler');
+  var stream = require('stream');
 <span class="apidocCodeCommentSpan">  /** @const */
-</span>  var PLUGIN_NAME = &#x27;gulp-google-closure-compiler&#x27;;
+</span>  var PLUGIN_NAME = 'gulp-google-closure-compiler';
 
   var extraCommandArguments = initOptions ? initOptions.extraArguments : undefined;
-  var applySourceMap = require(&#x27;vinyl-sourcemaps-apply&#x27;);
-  var path = require(&#x27;path&#x27;);
-  var chalk = require(&#x27;chalk&#x27;);
-  var File = require(&#x27;vinyl&#x27;);
+  var applySourceMap = require('vinyl-sourcemaps-apply');
+  var path = require('path');
+  var chalk = require('chalk');
+  var File = require('vinyl');
 
   /** @constructor */
   function CustomError(plugin, msg) {
     var superError = Error.call(this) || this;
     Error.captureStackTrace(superError, this.constructor);
-    superError.name = &#x27;Error&#x27;;
+    superError.name = 'Error';
     superError.message = msg;
     return superError;
   }
   CustomError.prototype = Object.create(Error.prototype);
-  CustomError.prototype.name = &#x27;Error&#x27;;
+  CustomError.prototype.name = 'Error';
 
   var PluginError;
   try {
-    PluginError = require(&#x27;gulp-util&#x27;).PluginError;
+    PluginError = require('gulp-util').PluginError;
   } catch(e) {
     PluginError = CustomError;
   }
 
   var gulpLog;
   try {
-    gulpLog = require(&#x27;gulp-util&#x27;).log;
+    gulpLog = require('gulp-util').log;
   } catch(e) {
     gulpLog = console;
   }
@@ -643,7 +636,7 @@ Task targets, files and options may be specified according to the grunt
     pluginOptions = pluginOptions || {};
 
     this.compilationOptions_ = compilationOptions;
-    this.streamMode_ = pluginOptions.streamMode || &#x27;BOTH&#x27;;
+    this.streamMode_ = pluginOptions.streamMode || 'BOTH';
     this.logger_ = pluginOptions.logger || gulpLog;
     this.PLUGIN_NAME_ = pluginOptions.pluginName || PLUGIN_NAME;
 
@@ -674,7 +667,7 @@ Task targets, files and options may be specified according to the grunt
     }
 
     if (file.isStream()) {
-      this.emit(&#x27;error&#x27;, new PluginError(this.PLUGIN_NAME_, &#x27;Streaming not supported&#x27;));
+      this.emit('error', new PluginError(this.PLUGIN_NAME_, 'Streaming not supported'));
       cb();
       return;
     }
@@ -685,13 +678,13 @@ Task targets, files and options may be specified according to the grunt
 
   CompilationStream.prototype._flush = function(cb) {
     var jsonFiles, logger = this.logger_.warn ? this.logger_.warn : this.logger_;
-    if (this.fileList_.length &#x3e; 0) {
+    if (this.fileList_.length &gt; 0) {
       // Input files are present. Convert them to a JSON encoded string
       jsonFiles = filesToJson(this.fileList_);
     } else {
       // If files in the stream were required, no compilation needed here.
       if (this._streamInputRequired) {
-        this.emit(&#x27;end&#x27;);
+        this.emit('end');
         cb();
         return;
       }
@@ -704,50 +697,50 @@ Task targets, files and options may be specified according to the grunt
     var compiler = new Compiler(this.compilationOptions_, extraCommandArguments);
 
     // Add the gulp-specific argument so the compiler will understand the JSON encoded input
-    // for gulp, the stream mode will be &#x27;BOTH&#x27;, but when invoked from grunt, we only use
-    // a stream mode of &#x27;IN&#x27;
-    compiler.commandArguments.push(&#x27;--json_streams&#x27;, this.streamMode_);
+    // for gulp, the stream mode will be 'BOTH', but when invoked from grunt, we only use
+    // a stream mode of 'IN'
+    compiler.commandArguments.push('--json_streams', this.streamMode_);
 
     var compilerProcess = compiler.run();
 
-    var stdOutData = &#x27;&#x27;, stdErrData = &#x27;&#x27;;
+    var stdOutData = '', stdErrData = '';
 
-    compilerProcess.stdout.on(&#x27;data&#x27;, function (data) {
+    compilerProcess.stdout.on('data', function (data) {
       stdOutData += data;
     });
-    compilerProcess.stderr.on(&#x27;data&#x27;, function (data) {
+    compilerProcess.stderr.on('data', function (data) {
       stdErrData += data;
     });
 
     Promise.all([
       new Promise(function(resolve) {
-        compilerProcess.on(&#x27;close&#x27;, function(code) {
+        compilerProcess.on('close', function(code) {
           resolve(code);
         });
       }),
       new Promise(function(resolve) {
-        compilerProcess.stdout.on(&#x27;end&#x27;, function() {
+        compilerProcess.stdout.on('end', function() {
           resolve();
         });
       }),
       new Promise(function(resolve) {
-        compilerProcess.stderr.on(&#x27;end&#x27;, function() ...</pre></li>
+        compilerProcess.stderr.on('end', function() ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 The gulp plugin supports piping multiple files through the compiler.
 
-Options are a direct match to the compiler flags without the leading &#x22;--&#x22;.
+Options are a direct match to the compiler flags without the leading "--".
 
 ### Basic Configuration Example:
 
 ```js
-var closureCompiler = require(&#x27;google-closure-compiler&#x27;).<span class="apidocCodeKeywordSpan">gulp</span>();
+var closureCompiler = require('google-closure-compiler').<span class="apidocCodeKeywordSpan">gulp</span>();
 
-gulp.task(&#x27;js-compile&#x27;, function () {
-return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
+gulp.task('js-compile', function () {
+return gulp.src('./src/js/**/*.js', {base: './'})
     .pipe(closureCompiler({
-        compilation_level: &#x27;SIMPLE&#x27;,
-        warning_level: &#x27;VERBOSE&#x27;,
-        language_in: &#x27;ECMASCRIPT6_STRICT&#x27;,
+        compilation_level: 'SIMPLE',
+        warning_level: 'VERBOSE',
+        language_in: 'ECMASCRIPT6_STRICT',
 ...</pre></li>
     </ul>
 
@@ -771,7 +764,7 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
   this.commandArguments = (extraCommandArgs || []).slice();
 
   if (Compiler.JAR_PATH) {
-    this.commandArguments.push(&#x27;-jar&#x27;, Compiler.JAR_PATH);
+    this.commandArguments.push('-jar', Compiler.JAR_PATH);
   }
 
   if (Array.isArray(args)) {
@@ -779,7 +772,7 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
   } else {
     for (var key in args) {
       if (Array.isArray(args[key])) {
-        for (var i = 0; i &#x3c; args[key].length; i++) {
+        for (var i = 0; i &lt; args[key].length; i++) {
           this.commandArguments.push(
               this.formatArgument(key, args[key][i]));
         }
@@ -815,10 +808,10 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
     <ul>
     <li>description and source-code<pre class="apidocCodePre">formatArgument = function (key, val) {
   if (val === undefined || val === null) {
-    return &#x27;--&#x27; + key;
+    return '--' + key;
   }
 
-  return &#x27;--&#x27; + key + &#x27;=&#x27; + val;
+  return '--' + key + '=' + val;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -833,7 +826,7 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getFullCommand = function () {
-  return this.javaPath + &#x27; &#x27; + this.commandArguments.join(&#x27; &#x27;);
+  return this.javaPath + ' ' + this.commandArguments.join(' ');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -848,7 +841,7 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">prependFullCommand = function (msg) {
-  return this.getFullCommand() + &#x27;\n\n&#x27; + msg + &#x27;\n\n&#x27;;
+  return this.getFullCommand() + '\n\n' + msg + '\n\n';
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -864,22 +857,22 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
     <ul>
     <li>description and source-code<pre class="apidocCodePre">run = function (callback) {
   if (this.logger) {
-    this.logger(this.getFullCommand() + &#x27;\n&#x27;);
+    this.logger(this.getFullCommand() + '\n');
   }
 
   var compileProcess = spawn(this.javaPath, this.commandArguments, this.spawnOptions);
 
-  var stdOutData = &#x27;&#x27;, stdErrData = &#x27;&#x27;;
+  var stdOutData = '', stdErrData = '';
   if (callback) {
-    compileProcess.stdout.on(&#x27;data&#x27;, function (data) {
+    compileProcess.stdout.on('data', function (data) {
       stdOutData += data;
     });
 
-    compileProcess.stderr.on(&#x27;data&#x27;, function (data) {
+    compileProcess.stderr.on('data', function (data) {
       stdErrData += data;
     });
 
-    compileProcess.on(&#x27;close&#x27;, (function (code) {
+    compileProcess.on('close', (function (code) {
       if (code !== 0) {
         stdErrData = this.prependFullCommand(stdErrData);
       }
@@ -887,9 +880,9 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
       callback(code, stdOutData, stdErrData);
     }).bind(this));
 
-    compileProcess.on(&#x27;error&#x27;, (function (err) {
+    compileProcess.on('error', (function (err) {
       callback(1, stdOutData,
-          this.prependFullCommand(&#x27;Process spawn error. Is java in the path?\n&#x27; + err.message));
+          this.prependFullCommand('Process spawn error. Is java in the path?\n' + err.message));
     }).bind(this));
   }
 
@@ -899,8 +892,8 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
 console.log(ClosureCompiler.CONTRIB_PATH); // absolute path the contrib folder which contains
 
 var closureCompiler = new ClosureCompiler({
-  js: &#x27;file-one.js&#x27;,
-  compilation_level: &#x27;ADVANCED&#x27;
+  js: 'file-one.js',
+  compilation_level: 'ADVANCED'
 });
 
 var compilerProcess = closureCompiler.<span class="apidocCodeKeywordSpan">run</span>(function(exitCode, stdOut, stdErr) {
@@ -933,10 +926,10 @@ Copyright 2015 The Closure Compiler Authors
     <ul>
     <li>description and source-code<pre class="apidocCodePre">formatArgument = function (key, val) {
   if (val === undefined || val === null) {
-    return &#x27;--&#x27; + key;
+    return '--' + key;
   }
 
-  return &#x27;--&#x27; + key + &#x27;=&#x27; + val;
+  return '--' + key + '=' + val;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -956,7 +949,7 @@ Copyright 2015 The Closure Compiler Authors
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getFullCommand = function () {
-  return this.javaPath + &#x27; &#x27; + this.commandArguments.join(&#x27; &#x27;);
+  return this.javaPath + ' ' + this.commandArguments.join(' ');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -976,7 +969,7 @@ Copyright 2015 The Closure Compiler Authors
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">prependFullCommand = function (msg) {
-  return this.getFullCommand() + &#x27;\n\n&#x27; + msg + &#x27;\n\n&#x27;;
+  return this.getFullCommand() + '\n\n' + msg + '\n\n';
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -997,22 +990,22 @@ Copyright 2015 The Closure Compiler Authors
     <ul>
     <li>description and source-code<pre class="apidocCodePre">run = function (callback) {
   if (this.logger) {
-    this.logger(this.getFullCommand() + &#x27;\n&#x27;);
+    this.logger(this.getFullCommand() + '\n');
   }
 
   var compileProcess = spawn(this.javaPath, this.commandArguments, this.spawnOptions);
 
-  var stdOutData = &#x27;&#x27;, stdErrData = &#x27;&#x27;;
+  var stdOutData = '', stdErrData = '';
   if (callback) {
-    compileProcess.stdout.on(&#x27;data&#x27;, function (data) {
+    compileProcess.stdout.on('data', function (data) {
       stdOutData += data;
     });
 
-    compileProcess.stderr.on(&#x27;data&#x27;, function (data) {
+    compileProcess.stderr.on('data', function (data) {
       stdErrData += data;
     });
 
-    compileProcess.on(&#x27;close&#x27;, (function (code) {
+    compileProcess.on('close', (function (code) {
       if (code !== 0) {
         stdErrData = this.prependFullCommand(stdErrData);
       }
@@ -1020,9 +1013,9 @@ Copyright 2015 The Closure Compiler Authors
       callback(code, stdOutData, stdErrData);
     }).bind(this));
 
-    compileProcess.on(&#x27;error&#x27;, (function (err) {
+    compileProcess.on('error', (function (err) {
       callback(1, stdOutData,
-          this.prependFullCommand(&#x27;Process spawn error. Is java in the path?\n&#x27; + err.message));
+          this.prependFullCommand('Process spawn error. Is java in the path?\n' + err.message));
     }).bind(this));
   }
 
@@ -1032,8 +1025,8 @@ Copyright 2015 The Closure Compiler Authors
 console.log(ClosureCompiler.CONTRIB_PATH); // absolute path the contrib folder which contains
 
 var closureCompiler = new ClosureCompiler({
-  js: &#x27;file-one.js&#x27;,
-  compilation_level: &#x27;ADVANCED&#x27;
+  js: 'file-one.js',
+  compilation_level: 'ADVANCED'
 });
 
 var compilerProcess = closureCompiler.<span class="apidocCodeKeywordSpan">run</span>(function(exitCode, stdOut, stdErr) {
@@ -1061,22 +1054,22 @@ Copyright 2015 The Closure Compiler Authors
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">grunt = function (grunt, extraArguments) {
-  var chalk = require(&#x27;chalk&#x27;);
-  var VinylStream = require(&#x27;./vinyl-stream&#x27;);
-  var fs = require(&#x27;fs&#x27;);
-  var path = require(&#x27;path&#x27;);
-  var gulpCompiler = require(&#x27;../gulp&#x27;)({extraArguments: extraArguments});
-  var Transform = require(&#x27;stream&#x27;).Transform;
+  var chalk = require('chalk');
+  var VinylStream = require('./vinyl-stream');
+  var fs = require('fs');
+  var path = require('path');
+  var gulpCompiler = require('../gulp')({extraArguments: extraArguments});
+  var Transform = require('stream').Transform;
   var gulpCompilerOptions = {
-    streamMode: &#x27;IN&#x27;,
+    streamMode: 'IN',
     logger: grunt.log,
-    pluginName: &#x27;grunt-google-closure-compiler&#x27;,
+    pluginName: 'grunt-google-closure-compiler',
     requireStreamInput: false
   };
 
 <span class="apidocCodeCommentSpan">  /**
-   * @param {Array&#x3c;string&#x3e;}|null} files
-   * @param {Object&#x3c;string,string|boolean|Array&#x3c;string&#x3e;&#x3e;|Array&#x3c;string&#x3e;} options
+   * @param {Array&lt;string&gt;}|null} files
+   * @param {Object&lt;string,string|boolean|Array&lt;string&gt;&gt;|Array&lt;string&gt;} options
    * @return {Promise}
    */
 </span>  function compilationPromise(files, options) {
@@ -1085,9 +1078,9 @@ Copyright 2015 The Closure Compiler Authors
       // If an error was encoutered, it will have already been logged
       if (!hadError) {
         if (options.js_output_file) {
-          grunt.log.ok(chalk.cyan(options.js_output_file) + &#x27; created&#x27;);
+          grunt.log.ok(chalk.cyan(options.js_output_file) + ' created');
         } else {
-          grunt.log.ok(&#x27;Compilation succeeded&#x27;);
+          grunt.log.ok('Compilation succeeded');
         }
       }
       cb();
@@ -1115,16 +1108,16 @@ Copyright 2015 The Closure Compiler Authors
         stream.end();
       }
 
-      stream.on(&#x27;error&#x27;, function(err) {
+      stream.on('error', function(err) {
         hadError = true;
         reject(err);
       });
-      stream.on(&#x27;end&#x27;, function(err) {
+      stream.on('end', function(err) {
         resolve();
       });
 
       stream.pipe(loggingStream);
-      stream.resume(); //logging stream doesn&#x27;t output files, so we have to manually resume;
+      stream.resume(); //logging stream doesn't output files, so we have to manually resume;
     });
   }
 
@@ -1154,7 +1147,7 @@ Copyright 2015 The Closure Compiler Authors
 
       var src = f.src.filter(function (filepath) {
         if (!grunt.file.exists(filepath)) {
-          grunt.log.warn(&#x27;Source file &#x27; + chalk.cyan(filepath) + &#x27; not found&#x27;);
+          grunt.log.warn('Source file ' + chalk.cyan(filepath) + ' not found');
           return false;
         }
         return true;
@@ -1162,8 +1155,8 @@ Copyright 2015 The Closure Compiler Authors
 
       // Require source files
       if (src.length === 0) {
-        grunt.log.warn(&#x27;Destination &#x27; + chalk.cyan(f.dest) +
-            &#x27; not written because src files were empty&#x27;);
+        grunt.log.warn('Destination ' + chalk.cyan(f.dest) +
+            ' not written because src files were empty');
         return;
       } else {
         options.compilerOpts.js_output_file = f.dest;
@@ -1183,17 +1176,17 @@ Copyright 2015 The Closure Compiler Authors
     }
 
     // Multiple invocations of the compiler can occur for a single task target. Wait until
-    // they are all completed before calling the &#x22;done&#x22; method.
+    // they are all completed before calling the "done" method.
     Promise.all(compileTasks).then(function () {
       asyncDone();
     }, function () {
-      grunt.fail.warn(&#x27;Compilation error&#x27;);
+      grunt.fail.warn('Compilation error');
       asyncDone();
     });
   }
 
-  grunt.registerMultiTask(&#x27;closure-compiler&#x27;,
-      &#x27;Minify files with Google Closure Compiler&#x27;,
+  grunt.registerMultiTask('closure-compiler',
+      'Minify files with Google Closure Compiler',
       closur ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -1203,8 +1196,8 @@ Copyright 2015 The Closure Compiler Authors
 Include the plugin in your Gruntfile.js:
 
 ```js
-require(&#x27;google-closure-compiler&#x27;).<span class="apidocCodeKeywordSpan">grunt</span>(grunt);
-// The load-grunt-tasks plugin won&#x27;t automatically load closure-compiler
+require('google-closure-compiler').<span class="apidocCodeKeywordSpan">grunt</span>(grunt);
+// The load-grunt-tasks plugin won't automatically load closure-compiler
 ```
 
 Task targets, files and options may be specified according to the grunt
@@ -1229,40 +1222,40 @@ Task targets, files and options may be specified according to the grunt
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gulp = function (initOptions) {
-  var filesToJson = require(&#x27;./concat-to-json&#x27;);
-  var jsonToVinyl = require(&#x27;./json-to-vinyl&#x27;);
-  var Compiler = require(&#x27;../node/closure-compiler&#x27;);
-  var stream = require(&#x27;stream&#x27;);
+  var filesToJson = require('./concat-to-json');
+  var jsonToVinyl = require('./json-to-vinyl');
+  var Compiler = require('../node/closure-compiler');
+  var stream = require('stream');
 <span class="apidocCodeCommentSpan">  /** @const */
-</span>  var PLUGIN_NAME = &#x27;gulp-google-closure-compiler&#x27;;
+</span>  var PLUGIN_NAME = 'gulp-google-closure-compiler';
 
   var extraCommandArguments = initOptions ? initOptions.extraArguments : undefined;
-  var applySourceMap = require(&#x27;vinyl-sourcemaps-apply&#x27;);
-  var path = require(&#x27;path&#x27;);
-  var chalk = require(&#x27;chalk&#x27;);
-  var File = require(&#x27;vinyl&#x27;);
+  var applySourceMap = require('vinyl-sourcemaps-apply');
+  var path = require('path');
+  var chalk = require('chalk');
+  var File = require('vinyl');
 
   /** @constructor */
   function CustomError(plugin, msg) {
     var superError = Error.call(this) || this;
     Error.captureStackTrace(superError, this.constructor);
-    superError.name = &#x27;Error&#x27;;
+    superError.name = 'Error';
     superError.message = msg;
     return superError;
   }
   CustomError.prototype = Object.create(Error.prototype);
-  CustomError.prototype.name = &#x27;Error&#x27;;
+  CustomError.prototype.name = 'Error';
 
   var PluginError;
   try {
-    PluginError = require(&#x27;gulp-util&#x27;).PluginError;
+    PluginError = require('gulp-util').PluginError;
   } catch(e) {
     PluginError = CustomError;
   }
 
   var gulpLog;
   try {
-    gulpLog = require(&#x27;gulp-util&#x27;).log;
+    gulpLog = require('gulp-util').log;
   } catch(e) {
     gulpLog = console;
   }
@@ -1273,7 +1266,7 @@ Task targets, files and options may be specified according to the grunt
     pluginOptions = pluginOptions || {};
 
     this.compilationOptions_ = compilationOptions;
-    this.streamMode_ = pluginOptions.streamMode || &#x27;BOTH&#x27;;
+    this.streamMode_ = pluginOptions.streamMode || 'BOTH';
     this.logger_ = pluginOptions.logger || gulpLog;
     this.PLUGIN_NAME_ = pluginOptions.pluginName || PLUGIN_NAME;
 
@@ -1304,7 +1297,7 @@ Task targets, files and options may be specified according to the grunt
     }
 
     if (file.isStream()) {
-      this.emit(&#x27;error&#x27;, new PluginError(this.PLUGIN_NAME_, &#x27;Streaming not supported&#x27;));
+      this.emit('error', new PluginError(this.PLUGIN_NAME_, 'Streaming not supported'));
       cb();
       return;
     }
@@ -1315,13 +1308,13 @@ Task targets, files and options may be specified according to the grunt
 
   CompilationStream.prototype._flush = function(cb) {
     var jsonFiles, logger = this.logger_.warn ? this.logger_.warn : this.logger_;
-    if (this.fileList_.length &#x3e; 0) {
+    if (this.fileList_.length &gt; 0) {
       // Input files are present. Convert them to a JSON encoded string
       jsonFiles = filesToJson(this.fileList_);
     } else {
       // If files in the stream were required, no compilation needed here.
       if (this._streamInputRequired) {
-        this.emit(&#x27;end&#x27;);
+        this.emit('end');
         cb();
         return;
       }
@@ -1334,50 +1327,50 @@ Task targets, files and options may be specified according to the grunt
     var compiler = new Compiler(this.compilationOptions_, extraCommandArguments);
 
     // Add the gulp-specific argument so the compiler will understand the JSON encoded input
-    // for gulp, the stream mode will be &#x27;BOTH&#x27;, but when invoked from grunt, we only use
-    // a stream mode of &#x27;IN&#x27;
-    compiler.commandArguments.push(&#x27;--json_streams&#x27;, this.streamMode_);
+    // for gulp, the stream mode will be 'BOTH', but when invoked from grunt, we only use
+    // a stream mode of 'IN'
+    compiler.commandArguments.push('--json_streams', this.streamMode_);
 
     var compilerProcess = compiler.run();
 
-    var stdOutData = &#x27;&#x27;, stdErrData = &#x27;&#x27;;
+    var stdOutData = '', stdErrData = '';
 
-    compilerProcess.stdout.on(&#x27;data&#x27;, function (data) {
+    compilerProcess.stdout.on('data', function (data) {
       stdOutData += data;
     });
-    compilerProcess.stderr.on(&#x27;data&#x27;, function (data) {
+    compilerProcess.stderr.on('data', function (data) {
       stdErrData += data;
     });
 
     Promise.all([
       new Promise(function(resolve) {
-        compilerProcess.on(&#x27;close&#x27;, function(code) {
+        compilerProcess.on('close', function(code) {
           resolve(code);
         });
       }),
       new Promise(function(resolve) {
-        compilerProcess.stdout.on(&#x27;end&#x27;, function() {
+        compilerProcess.stdout.on('end', function() {
           resolve();
         });
       }),
       new Promise(function(resolve) {
-        compilerProcess.stderr.on(&#x27;end&#x27;, function() ...</pre></li>
+        compilerProcess.stderr.on('end', function() ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 The gulp plugin supports piping multiple files through the compiler.
 
-Options are a direct match to the compiler flags without the leading &#x22;--&#x22;.
+Options are a direct match to the compiler flags without the leading "--".
 
 ### Basic Configuration Example:
 
 ```js
-var closureCompiler = require(&#x27;google-closure-compiler&#x27;).<span class="apidocCodeKeywordSpan">gulp</span>();
+var closureCompiler = require('google-closure-compiler').<span class="apidocCodeKeywordSpan">gulp</span>();
 
-gulp.task(&#x27;js-compile&#x27;, function () {
-return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
+gulp.task('js-compile', function () {
+return gulp.src('./src/js/**/*.js', {base: './'})
     .pipe(closureCompiler({
-        compilation_level: &#x27;SIMPLE&#x27;,
-        warning_level: &#x27;VERBOSE&#x27;,
-        language_in: &#x27;ECMASCRIPT6_STRICT&#x27;,
+        compilation_level: 'SIMPLE',
+        warning_level: 'VERBOSE',
+        language_in: 'ECMASCRIPT6_STRICT',
 ...</pre></li>
     </ul>
 
@@ -1390,3 +1383,4 @@ return gulp.src(&#x27;./src/js/**/*.js&#x27;, {base: &#x27;./&#x27;})
     ]
 </div>
 </div>
+</body></html>

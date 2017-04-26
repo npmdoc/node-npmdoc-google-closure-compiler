@@ -1,6 +1,6 @@
 # npmdoc-google-closure-compiler
 
-#### api documentation for  [google-closure-compiler (v20170409.0.0)](https://developers.google.com/closure/compiler/)  [![npm package](https://img.shields.io/npm/v/npmdoc-google-closure-compiler.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-google-closure-compiler) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-google-closure-compiler.svg)](https://travis-ci.org/npmdoc/node-npmdoc-google-closure-compiler)
+#### basic api documentation for  [google-closure-compiler (v20170423.0.0)](https://developers.google.com/closure/compiler/)  [![npm package](https://img.shields.io/npm/v/npmdoc-google-closure-compiler.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-google-closure-compiler) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-google-closure-compiler.svg)](https://travis-ci.org/npmdoc/node-npmdoc-google-closure-compiler)
 
 #### Check, compile, optimize and compress Javascript with Closure-Compiler
 
@@ -48,8 +48,8 @@
     },
     "directories": {},
     "dist": {
-        "shasum": "dc1be29a9f7eef8611364533b271b9fac757c970",
-        "tarball": "https://registry.npmjs.org/google-closure-compiler/-/google-closure-compiler-20170409.0.0.tgz"
+        "shasum": "475c6a2f4512fd7fdbacb32997b2e1ab1ca6fff8",
+        "tarball": "https://registry.npmjs.org/google-closure-compiler/-/google-closure-compiler-20170423.0.0.tgz"
     },
     "engines": {
         "node": ">=4"
@@ -62,7 +62,7 @@
         "contrib/",
         "README.md"
     ],
-    "gitHead": "da10641e0ef4cfbcaa51e01d3fa5074f839be69a",
+    "gitHead": "a89bfe8bc212d4063eecc7891befe8e144130c13",
     "homepage": "https://developers.google.com/closure/compiler/",
     "keywords": [
         "javascript",
@@ -102,7 +102,8 @@
         "pretest": "./build_compiler.js",
         "test": "mocha"
     },
-    "version": "20170409.0.0"
+    "version": "20170423.0.0",
+    "bin": {}
 }
 ```
 
